@@ -1,0 +1,15 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- call_id is set per request by CallId/callIdMdc (Plugins.kt) — it groups
+                 the log lines of one request; empty brackets on non-request lines. -->
+            <pattern>%d{HH:mm:ss.SSS} %-5level [%X{call_id}] %logger{20} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- Env-overridable so a deployed pod can be bumped to DEBUG (LOG_LEVEL=DEBUG)
+         without rebuilding the image. -->
+    <root level="${LOG_LEVEL:-INFO}">
+        <appender-ref ref="STDOUT"/>
+    </root>
+    <logger name="io.netty" level="WARN"/>
+</configuration>

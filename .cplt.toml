@@ -1,0 +1,6 @@
+[deny]
+paths = [".env", ".env.local"]
+
+[propose]
+gh_guard = true
+git_push_prevention = true

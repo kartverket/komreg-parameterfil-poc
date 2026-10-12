@@ -1,0 +1,15 @@
+# nonk8s
+apiVersion: "backstage.io/v1alpha1"
+kind: "Component"
+metadata:
+  name: "komreg-parameterfil-poc"
+  description: "PoC that builds the parameterfil for a grensejustering: pick teiger on a map and build the regulering komreg-backend runs. Runs locally only."
+  annotations:
+    github.com/project-slug: "kartverket/komreg-parameterfil-poc"
+  tags:
+    - "public"
+spec:
+  type: "website"
+  lifecycle: "experimental"
+  owner: "smia"
+  system: "komreg"

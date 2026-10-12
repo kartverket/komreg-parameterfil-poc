@@ -1,0 +1,55 @@
+# Style for the whole repo. Kotlin's half is enforced by ktlint (see
+# backend/server/build.gradle.kts); the frontend's is enforced by oxfmt via `pnpm format`
+# (configured in frontend/vite.config.ts, which owns quotes and semicolons).
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{kt,kts}]
+# intellij_idea, NOT ktlint_official. The backend was already written in this style —
+# 4-space indent, no forced trailing commas, no forced multiline signatures — so ktlint
+# leaves it alone instead of rewriting every file the first time it runs.
+ktlint_code_style = intellij_idea
+indent_style = space
+indent_size = 4
+# Measured, not taste: when this was introduced exactly three files in the backend had
+# any line past 120, and all three were the reguleringer/ slice. Everything else already
+# complied, so this catches drift without churning what was fine.
+max_line_length = 120
+
+# --- Where ktlint's defaults are overruled -------------------------------------------
+#
+# Each of these encodes a convention the codebase already follows deliberately. They are
+# off so the formatter enforces the house style rather than replacing it; everything not
+# listed here is left on, and `ktlintFormat` fixes it.
+
+# Pure lexicographic, java/kotlin sorted inline with everything else — which is what all
+# 35 Kotlin files already do. ktlint's default wants java/javax/kotlin pushed to the end,
+# which would reorder the imports of every file in the repo to no benefit.
+ij_kotlin_imports_layout = *
+
+# These two collapse a multi-line parameter list onto one line whenever it fits. The
+# codebase writes them multi-line with trailing commas throughout (ListDto, GenererDto,
+# ReguleringDto, KomregTarget, ReguleringBuilder, both reguleringer/ files) because a
+# parameter per line is what makes a 5-field DTO readable and diffable. 55 of the 125
+# violations on first run were this rule alone, all of them asking to undo that.
+ktlint_standard_function-signature = disabled
+ktlint_standard_class-signature = disabled
+
+# Wants one-public-type files named after the type:
+# ReguleringerService.kt -> TestkjoringUtfall.kt. The backend is laid out by slice role
+# (XRoutes / XRepository / XService / XDto — see backend/AGENTS.md), and that is the more
+# useful name when you are looking for where a slice keeps its logic.
+ktlint_standard_filename = disabled
+
+[*.{ts,tsx,js,mjs,json,yml,yaml,css,html}]
+indent_style = space
+indent_size = 2
+
+[*.md]
+# Trailing double-space is a hard line break in Markdown.
+trim_trailing_whitespace = false

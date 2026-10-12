@@ -1,0 +1,303 @@
+{
+    "id": "grensejustering-2027-5060-1811",
+    "navn": "Grensejustering 5060 → 1811",
+    "dato": "2027-01-01",
+    "endringer": [
+        {
+            "id": "5060-1811",
+            "navn": "Grensejustering 5060 → 1811",
+            "type": "kommune",
+            "utgåendeFylker": [],
+            "utgåendeKommuner": [],
+            "nyeFylker": [],
+            "nyeKommuner": [],
+            "transformasjoner": [
+                {
+                    "type": "matrikkelenhet",
+                    "fylkesnummer": {
+                        "fra": "50",
+                        "til": "50"
+                    },
+                    "kommuneløpenummer": {
+                        "fra": "60",
+                        "til": "60"
+                    },
+                    "gårdsnummer": {
+                        "fra": "90",
+                        "til": "90"
+                    },
+                    "bruksnummer": {
+                        "4": {
+                            "fylkesnummer": 18,
+                            "kommunelopenummer": 11,
+                            "gardsnummer": 290,
+                            "bruksnummer": 4
+                        }
+                    }
+                },
+                {
+                    "type": "matrikkelenhet",
+                    "fylkesnummer": {
+                        "fra": "50",
+                        "til": "50"
+                    },
+                    "kommuneløpenummer": {
+                        "fra": "60",
+                        "til": "60"
+                    },
+                    "gårdsnummer": {
+                        "fra": "90",
+                        "til": "90"
+                    },
+                    "bruksnummer": {
+                        "5": {
+                            "fylkesnummer": 18,
+                            "kommunelopenummer": 11,
+                            "gardsnummer": 290,
+                            "bruksnummer": 5
+                        }
+                    }
+                },
+                {
+                    "type": "matrikkelenhet",
+                    "fylkesnummer": {
+                        "fra": "50",
+                        "til": "50"
+                    },
+                    "kommuneløpenummer": {
+                        "fra": "60",
+                        "til": "60"
+                    },
+                    "gårdsnummer": {
+                        "fra": "90",
+                        "til": "90"
+                    },
+                    "bruksnummer": {
+                        "9": {
+                            "fylkesnummer": 18,
+                            "kommunelopenummer": 11,
+                            "gardsnummer": 290,
+                            "bruksnummer": 9
+                        }
+                    }
+                },
+                {
+                    "type": "matrikkelenhet",
+                    "fylkesnummer": {
+                        "fra": "50",
+                        "til": "50"
+                    },
+                    "kommuneløpenummer": {
+                        "fra": "60",
+                        "til": "60"
+                    },
+                    "gårdsnummer": {
+                        "fra": "90",
+                        "til": "90"
+                    },
+                    "bruksnummer": {
+                        "10": {
+                            "fylkesnummer": 18,
+                            "kommunelopenummer": 11,
+                            "gardsnummer": 290,
+                            "bruksnummer": 10
+                        }
+                    }
+                },
+                {
+                    "type": "matrikkelenhet",
+                    "fylkesnummer": {
+                        "fra": "50",
+                        "til": "50"
+                    },
+                    "kommuneløpenummer": {
+                        "fra": "60",
+                        "til": "60"
+                    },
+                    "gårdsnummer": {
+                        "fra": "90",
+                        "til": "90"
+                    },
+                    "bruksnummer": {
+                        "11": {
+                            "fylkesnummer": 18,
+                            "kommunelopenummer": 11,
+                            "gardsnummer": 290,
+                            "bruksnummer": 11
+                        }
+                    }
+                },
+                {
+                    "type": "matrikkelenhet",
+                    "fylkesnummer": {
+                        "fra": "50",
+                        "til": "50"
+                    },
+                    "kommuneløpenummer": {
+                        "fra": "60",
+                        "til": "60"
+                    },
+                    "gårdsnummer": {
+                        "fra": "90",
+                        "til": "90"
+                    },
+                    "bruksnummer": {
+                        "36": {
+                            "fylkesnummer": 18,
+                            "kommunelopenummer": 11,
+                            "gardsnummer": 290,
+                            "bruksnummer": 36
+                        }
+                    }
+                },
+                {
+                    "type": "matrikkelenhet",
+                    "fylkesnummer": {
+                        "fra": "50",
+                        "til": "50"
+                    },
+                    "kommuneløpenummer": {
+                        "fra": "60",
+                        "til": "60"
+                    },
+                    "gårdsnummer": {
+                        "fra": "90",
+                        "til": "90"
+                    },
+                    "bruksnummer": {
+                        "37": {
+                            "fylkesnummer": 18,
+                            "kommunelopenummer": 11,
+                            "gardsnummer": 290,
+                            "bruksnummer": 37
+                        }
+                    }
+                },
+                {
+                    "type": "matrikkelenhet",
+                    "fylkesnummer": {
+                        "fra": "50",
+                        "til": "50"
+                    },
+                    "kommuneløpenummer": {
+                        "fra": "60",
+                        "til": "60"
+                    },
+                    "gårdsnummer": {
+                        "fra": "90",
+                        "til": "90"
+                    },
+                    "bruksnummer": {
+                        "38": {
+                            "fylkesnummer": 18,
+                            "kommunelopenummer": 11,
+                            "gardsnummer": 290,
+                            "bruksnummer": 38
+                        }
+                    }
+                },
+                {
+                    "type": "matrikkelenhet",
+                    "fylkesnummer": {
+                        "fra": "50",
+                        "til": "50"
+                    },
+                    "kommuneløpenummer": {
+                        "fra": "60",
+                        "til": "60"
+                    },
+                    "gårdsnummer": {
+                        "fra": "152",
+                        "til": "152"
+                    },
+                    "bruksnummer": {
+                        "1": {
+                            "fylkesnummer": 18,
+                            "kommunelopenummer": 11,
+                            "gardsnummer": 352,
+                            "bruksnummer": 1
+                        }
+                    }
+                },
+                {
+                    "type": "matrikkelenhet",
+                    "fylkesnummer": {
+                        "fra": "50",
+                        "til": "50"
+                    },
+                    "kommuneløpenummer": {
+                        "fra": "60",
+                        "til": "60"
+                    },
+                    "gårdsnummer": {
+                        "fra": "153",
+                        "til": "153"
+                    },
+                    "bruksnummer": {
+                        "1": {
+                            "fylkesnummer": 18,
+                            "kommunelopenummer": 11,
+                            "gardsnummer": 353,
+                            "bruksnummer": 1
+                        }
+                    }
+                },
+                {
+                    "type": "teig",
+                    "fylkesnummer": {
+                        "fra": "50",
+                        "til": "18"
+                    },
+                    "kommuneløpenummer": {
+                        "fra": "60",
+                        "til": "11"
+                    },
+                    "teigId": {
+                        "fra": "155336128",
+                        "til": "155336128"
+                    }
+                },
+                {
+                    "type": "veg",
+                    "fylkesnummer": {
+                        "fra": "50",
+                        "til": [
+                            "18"
+                        ]
+                    },
+                    "kommuneløpenummer": {
+                        "fra": "60",
+                        "til": [
+                            "11"
+                        ]
+                    },
+                    "adressekode": {
+                        "fra": "51501",
+                        "til": [
+                            "51501"
+                        ]
+                    }
+                },
+                {
+                    "type": "vegadresse",
+                    "fylkesnummer": {
+                        "fra": "50",
+                        "til": "18"
+                    },
+                    "kommuneløpenummer": {
+                        "fra": "60",
+                        "til": "11"
+                    },
+                    "adressekode": {
+                        "fra": "51505",
+                        "til": "51505"
+                    },
+                    "adressenummer": {
+                        "fra": "3045",
+                        "til": "3045"
+                    }
+                }
+            ]
+        }
+    ]
+}

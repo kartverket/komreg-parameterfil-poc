@@ -1,0 +1,84 @@
+services:
+  db:
+    image: postgres:18
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: komreg
+      POSTGRES_USER: komreg
+      POSTGRES_PASSWORD: komreg
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      # Postgres 18 moved PGDATA to a version-specific subdir and declares the
+      # volume at the parent (/var/lib/postgresql), not /var/lib/postgresql/data.
+      - komreg_pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U komreg -d komreg"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/komreg
+      DB_USER: komreg
+      DB_PASSWORD: komreg
+      # Vite (:5173) calls the backend (:8080) cross-origin in dev; prod is
+      # same-origin behind Caddy and runs without this.
+      DEV_CORS: "1"
+      TEST_RUNS_ENABLED: "1"
+      # Which komreg-backend to hand over to. `local` unless you say otherwise.
+      # Note "localhost" inside the container is the container — a komreg-backend on the
+      # host is host.docker.internal:8081.
+      KOMREG_TARGET: "${KOMREG_TARGET:-local}"
+      KOMREG_LOCAL_URL: "${KOMREG_LOCAL_URL:-http://host.docker.internal:8081}"
+      # For KOMREG_TARGET=dev. There is no `az` in this image and no Azure login, so the
+      # token is fetched on the host and passed in — ./dev.sh dev does that. It does not
+      # refresh, so restart roughly hourly. Empty means "run az yourself", which is what
+      # happens when the backend runs on the host instead.
+      KOMREG_DEV_TOKEN: "${KOMREG_DEV_TOKEN:-}"
+    # host.docker.internal resolves on its own on Docker Desktop, but NOT on Linux —
+    # there it needs this mapping, or the komreg-backend lookup above fails with an
+    # unresolved host rather than a refused connection.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      # Readiness probe over HTTP — temurin's JRE image has no curl/wget, so bash +
+      # /dev/tcp is the dependency-free way. /health/ready verifies DB connectivity,
+      # not just an open port.
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/8080 && printf 'GET /health/ready HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && grep -q ' 200 ' <&3"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 30s
+
+  # Dev-only: Vite dev server with hot reload. Source is bind-mounted; the
+  # anonymous volume keeps the container's node_modules from being shadowed
+  # by the host's.
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    # vp dev runs a deps-status check that may trigger `pnpm install`. With no
+    # TTY, pnpm refuses to auto-purge node_modules and aborts; CI=true makes it
+    # non-interactive (proceed without the confirmation prompt).
+    environment:
+      CI: "true"
+    ports:
+      - "127.0.0.1:5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  komreg_pgdata:

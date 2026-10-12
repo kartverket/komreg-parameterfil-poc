@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="159.4 -2.2 174.5 174.5">
+  <!-- Kartverket's logo mark, from kv_logo_vertikal_positiv.svg on
+       https://kartverket.no/om-kartverket/media/kartverkets-logoar — the SVG web-colour
+       version Kartverket publishes for "nettsider og appar".
+
+       Cropped to the symbol: the full logo puts "kartverket" in wordmark beneath it, which
+       is an illegible smudge at the 16px a favicon actually renders at. The three paths are
+       unmodified; only the class-based fills from the source's <style> block are inlined,
+       so nothing depends on CSS that a favicon context may not apply.
+
+       Colours are Kartverket's: green #1a833b, blue #1a589f, white. Do not restyle them.
+
+       The viewBox is padded to a square: the mark is 107x157, and a non-square viewBox
+       gets letterboxed into the square slot a browser tab gives a favicon. -->
+  <path fill="#1a833b" d="M292.04,6.85h-90.73c-4.55,0-8.25,3.69-8.25,8.25v55.63c7.12-5.42,16.03-12.99,32.11-9.02,13.85,3.42,16.87,14.1,38.79,26.23,13.41,7.43,26,1.7,36.33-4.3V15.1c0-4.55-3.69-8.25-8.25-8.25"/>
+  <path fill="#1a589f" d="M271.05,112.75c-4.52-.55-8.04-2.11-11.49-4.35-7.68-4.74-15.04-12.49-30.69-20.61-12.47-6.06-24.64-1.44-35.78,4.91,0,0,0,0-.01,0v62.38c0,4.55,3.69,8.25,8.25,8.25h90.73c4.55,0,8.25-3.69,8.25-8.25v-50.85c-9.68,5.55-18.98,10.06-29.24,8.53"/>
+  <path fill="#ffffff" d="M263.96,87.93c-21.91-12.13-24.93-22.81-38.79-26.23-16.08-3.97-24.99,3.61-32.11,9.02l.02,11.22v10.74c11.14-6.35,23.47-11.3,35.78-4.91,15.65,8.13,23.02,15.87,30.69,20.61,3.49,2.16,7.05,3.69,11.49,4.35,10.26,1.53,19.56-2.98,29.24-8.53l-.03-9.92.03-10.67c-10.33,6-22.91,11.73-36.33,4.3"/>
+</svg>

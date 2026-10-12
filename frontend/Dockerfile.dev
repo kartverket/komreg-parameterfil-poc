@@ -1,0 +1,24 @@
+# syntax=docker/dockerfile:1
+# Dev-only image: runs the Vite+ dev server (`vp dev`) with hot reload. Source is
+# bind-mounted from the host (see compose.yml), so the image only needs the
+# toolchain + installed deps — the build-time install populates the node_modules the
+# container uses (via the anonymous volume in compose). Runs as root: the bind mount
+# + anonymous node_modules volume make non-root awkward, and this image is dev-only.
+FROM node:26-slim
+WORKDIR /app
+# vp (Vite+'s Rust binary) reads the system CA store for HTTPS; node:26-slim ships
+# without it, so install ca-certificates or vp panics on startup.
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+# Pin pnpm to the lockfile's version (vp's catalog: needs pnpm 9.5+). Node 25+ no longer
+# ships Corepack, so install pnpm with npm instead.
+RUN npm install -g pnpm@12.11.2
+# Install deps first so this layer caches across source changes. The cache mount
+# reuses the pnpm store across builds. pnpm-workspace.yaml carries Vite+'s catalog:
+# versions, so the catalog: deps resolve at build time.
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store \
+    pnpm install --frozen-lockfile
+EXPOSE 5173
+# --host so the server is reachable from outside the container.
+CMD ["pnpm", "dev", "--host"]

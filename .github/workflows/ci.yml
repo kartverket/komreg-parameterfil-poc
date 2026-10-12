@@ -1,0 +1,71 @@
+name: CI
+
+# `pull_request` takes no `branches:` filter on purpose: a stacked PR targets the branch
+# below it, not main, and a filter would skip every layer except the bottom one.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# Rebasing a stack force-pushes every branch above the one you touched, so a single edit
+# low in the stack can kick off a run per layer. Keep only the newest run per ref.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Least privilege: nothing here writes to the repo. Declared at the top level so a new
+# job cannot silently inherit the default write-all token.
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    name: backend (gradle)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          # Don't leave the job's token in .git/config for later steps to reach.
+          persist-credentials: false
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6
+        with:
+          distribution: temurin
+          java-version: '25'
+      # Manages Gradle caches and validates every checked-in wrapper JAR.
+      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6
+      # `build` = compile + ktlintCheck + test. The tests start a real Postgres via Testcontainers;
+      # ubuntu-latest runners ship a working Docker daemon, so this needs no services:.
+      - run: ./gradlew build
+        working-directory: backend
+      # Verify that the Docker build image supplies the configured JVM toolchain.
+      - run: docker build --tag komreg-backend:ci backend
+
+  frontend:
+    name: frontend (vite-plus)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+        with:
+          # Matches devEngines.packageManager in frontend/package.json.
+          version: 12.11.2
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '26'
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+      # --frozen-lockfile: fail on a lockfile that doesn't match package.json rather
+      # than quietly resolving something else than what was reviewed.
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec tsc -b
+      - run: pnpm format:check
+      - run: pnpm lint
+      - run: pnpm test --run
+      - run: pnpm exec vp build
