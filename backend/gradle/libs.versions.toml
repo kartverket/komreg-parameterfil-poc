@@ -3,7 +3,7 @@ kotlin = "2.4.21"
 ktor = "3.6.0"
 hikari = "7.1.0"
 postgresql = "42.7.14"
-flyway = "13.10.0"
+flyway = "13.10.3"
 logback = "1.6.5"
 testcontainers = "2.0.5"
 # Formatter/linter. See ../../.editorconfig for the style it enforces.
